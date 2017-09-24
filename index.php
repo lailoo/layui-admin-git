@@ -17,12 +17,12 @@
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
 		<!-- 顶部 -->
-		<div class="layui-header header">
-			<div class="layui-main">
+		<div class=" layui-header admin-header">
+			<div class="layui-main  ">
 				<a href="#" class="logo">后台管理系统</a>
 			    <!-- 顶部右侧菜单 -->
-			    <ul class="layui-nav top_menu">
-                                <li class="layui-nav-item "  pc>
+			    <ul class="layui-nav top_menu ">
+                                <li class="layui-nav-item admin-header-nav-item-li" pc>
                                     <a href="../phpmyadmin/" target="_blank"><i class="iconfont icon-gonggao"></i><cite>phpMyAdmin数据库管理工具</cite></a>
                                 </li>
 <!--                                <li class="layui-nav-item showNotice"pc  id="showNotice" >
@@ -37,7 +37,7 @@
 <!--					<li class="layui-nav-item lockcms" pc>
 						<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>
 					</li>-->
-                                        <li class="layui-nav-item" pc>
+                                        <li class="layui-nav-item admin-header-nav-item-li" pc>
 						<a href="javascript:;">
 							<img src="images/face.jpg" class="layui-circle" width="35" height="35">
 							<cite></cite>
@@ -78,16 +78,8 @@
 		</div>-->
 	</div>
 
-	<!-- 锁屏 -->
-	<div class="admin-header-lock" id="lock-box" style="display: none;">
-		<div class="admin-header-lock-img"><img src="images/face.jpg"/></div>
-		<div class="admin-header-lock-name" id="lockUserName">coyote-ll</div>
-		<div class="input_btn">
-			<input type="password" class="admin-header-lock-input layui-input" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />
-			<button class="layui-btn" id="unlock">解锁</button>
-		</div>
-		<p>请输入“123456”，否则不会解锁成功哦！！！</p>
-	</div>
+
+	
 	<!-- 移动导航 -->
 	<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
