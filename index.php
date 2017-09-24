@@ -1,3 +1,11 @@
+
+<?php
+if(!isset($_COOKIE['user_id'])){
+    $login_url="./PHP/login.php";
+    header("Location:".$login_url);
+}
+else{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,18 +33,12 @@
                                 <li class="layui-nav-item admin-header-nav-item-li" pc>
                                     <a href="../phpmyadmin/" target="_blank"><i class="iconfont icon-gonggao"></i><cite>phpMyAdmin数据库管理工具</cite></a>
                                 </li>
-<!--                                <li class="layui-nav-item showNotice"pc  id="showNotice" >
-                                    <a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
-                                </li>-->
 			    	<li class="layui-nav-item" mobile>
 			    		<a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
 			    	</li>
 			    	<li class="layui-nav-item" mobile>
 			    		<a href="javascript:;"><i class="iconfont icon-loginout"></i> 退出</a>
 			    	</li>
-<!--					<li class="layui-nav-item lockcms" pc>
-						<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>
-					</li>-->
                                         <li class="layui-nav-item admin-header-nav-item-li" pc>
 						<a href="javascript:;">
 							<img src="images/face.jpg" class="layui-circle" width="35" height="35">
@@ -73,14 +75,11 @@
 			</div>
 		</div>
 		<!-- 底部 -->
-<!--		<div class="layui-footer footer">
+		<div class="layui-footer footer">
 			<p>copyright @2017 </p>
-		</div>-->
+		</div>
 	</div>
 
-
-	
-	<!-- 移动导航 -->
 	<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
 
@@ -90,3 +89,7 @@
 	<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
+<?php
+
+}
+?>

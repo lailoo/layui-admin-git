@@ -10,8 +10,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 		<title>后台管理系统登录-注册-忘记密码</title>
-		<link href="//cdn.bootcss.com/Swiper/3.4.1/css/swiper.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="../plugins/layui/css/layui.css" />
+                <link href="//cdn.bootcss.com/Swiper/3.4.1/css/swiper.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../layui/css/layui.css" />
 		<link rel="stylesheet" href="//at.alicdn.com/t/font_405150_y9pymml2wi3yds4i.css" />
 		<link rel="stylesheet" href="../css/style.css" />
 	</head>
@@ -28,14 +28,14 @@
 								<div class="swiper-slide swiper-no-swiping">
 									<div class="panel-body">
 										<div class="mar-ver">
-											<img src="../img/tx.jpg" />
+                                                                                    <img src="../images/tx.jpg" />
 											<h3>后台管理系统</h3>
 										</div>
 										<form class="layui-form" action="" id="loginForm">
 											<div class="layui-form-item ipt-text">
 												<div class="dp-block">
 													<i class="iconfont icon-zhanghu"></i>
-													<input type="text" name="phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input" lay-verify="required">
+													<input type="text" name="phone" placeholder="请输入用户名" autocomplete="off" class="layui-input" lay-verify="required">
 												</div>
 											</div>
 											<div class="layui-form-item ipt-text">
@@ -44,7 +44,7 @@
 													<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input" lay-verify="required">
 												</div>
 											</div>
-											<button type="button" class="layui-btn layui-btn-normal layui-btn-disabled dp-block" lay-submit lay-filter="loginForm" disabled="disabled">登 录</button>
+											<button type="button" class="layui-btn layui-btn-normal layui-btn-disabled dp-block" lay-submit lay-filter="loginForm" id="loginSubmit" disabled="disabled">登 录</button>
 										</form>
 									</div>
 									<div class="pad-all">
@@ -89,7 +89,7 @@
 													<input type="password" name="confirm_password" placeholder="请输入确认密码" autocomplete="off" class="layui-input" lay-verify="required">
 												</div>
 											</div>
-											<button type="button" class="layui-btn layui-btn-normal dp-block" lay-submit lay-filter="regForm">注 册</button>
+											<button type="button" class="layui-btn layui-btn-normal dp-block" lay-submit id="regSubmit" lay-filter="regForm">注 册</button>
 										</form>
 									</div>
 									<div class="pad-all">
@@ -129,7 +129,7 @@
 													<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input" lay-verify="required">
 												</div>
 											</div>
-											<button type="button" class="layui-btn layui-btn-normal dp-block" lay-submit lay-filter="updatePassForm">修 改</button>
+											<button type="button" class="layui-btn layui-btn-normal dp-block" lay-submit  id="updateSubmit" lay-filter="updatePassForm">修 改</button>
 										</form>
 									</div>
 									<div class="pad-all">
@@ -155,18 +155,18 @@
 		<div class="switch-bg">
 			<div id="switch-bg-list">
 				<div class="switch-loading" style="display: none;"></div>
-				<img src="../img/bg_img/thumbs/bg-trns.jpg" alt="" class="switch-chg-bg bg-trans active">
-				<img src="../img/bg_img/bg-img-1.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-2.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-3.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-4.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-5.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-6.jpg" alt="" class="switch-chg-bg " />
-				<img src="../img/bg_img/bg-img-7.jpg" alt="" class="switch-chg-bg " />
+                                <img src="../images/bg_img/thumbs/bg-trns.jpg" alt="" class="switch-chg-bg bg-trans active">
+				<img src="../images/bg_img/bg-img-1.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-2.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-3.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-4.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-5.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-6.jpg" alt="" class="switch-chg-bg " />
+				<img src="../images/bg_img/bg-img-7.jpg" alt="" class="switch-chg-bg " />
 			</div>
 		</div>
-		<script src="//cdn.bootcss.com/Swiper/3.4.1/js/swiper.min.js"></script>
-		<script type="text/javascript" src="../plugins/layui/layui.js"></script>
-		<script src="../js/main/login_reg_fPass.js"></script>
+                <script src="//cdn.bootcss.com/Swiper/3.4.1/js/swiper.min.js"></script>
+		<script type="text/javascript" src="../layui/layui.js"></script>
+                <script src="../js/login.js"></script>
 	</body>
 </html>
