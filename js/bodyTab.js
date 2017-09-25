@@ -87,30 +87,33 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
 
 
                 title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + tabIdIndex + '">&#x1006;</i>';
-                var tablePara = {tablename: _this.attr("data-url")};
+                if (_this.attr("data-url") != undefined) {
+                    var tablePara = {tablename: _this.attr("data-url")};
 
-                //获取表数据显示页面
-                $.ajax({
-                    url: "./PHP/tableTitleFetch.php",
-                    type: "get",
-                    data: tablePara,
-                    dataType: "html",
-                    success: function (data) {
-                        element.tabAdd(tabFilter, {
-                            title: title,
-                            content: data,
-                            id: new Date().getTime()
-                        });
-                        element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
-                        that.bindEventForCurrTab();//获取表数据，完成页面的创建
+                    //获取表数据显示页面
+                    $.ajax({
+                        url: "./PHP/tableTitleFetch.php",
+                        type: "get",
+                        data: tablePara,
+                        dataType: "html",
+                        success: function (data) {
+                            element.tabAdd(tabFilter, {
+                                title: title,
+                                content: data,
+                                id: new Date().getTime()
+                            });
+                            element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
+                            that.bindEventForCurrTab();//获取表数据，完成页面的创建
 
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-                        alert(XMLHttpRequest.status);
-                        alert(XMLHttpRequest.readyState);
-                        alert(errorThrown); // paser error;
-                    },
-                });
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+                            alert(XMLHttpRequest.status);
+                            alert(XMLHttpRequest.readyState);
+                            alert(errorThrown); // paser error;
+                        },
+                    });
+                }
+
             } else {
                 element.tabChange(tabFilter, that.getLayId(_this.find("cite").text()));
             }
@@ -126,14 +129,14 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
     function getList() {
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
             curr: currpage, num: numPage, searchword: $(".search_input").val()};
-        
+
         $.ajax({
             url: "./PHP/tableDataFetch.php",
             type: "get",
             data: tableData,
             dataType: "html",
             success: function (data) {
-                
+
                 //执行加载数据的方法
                 linksList(data);
                 var totalNumOfPages = 20;
@@ -143,7 +146,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
                     data: tableData,
                     dataType: "html",
                     success: function (data) {
-                        
+
                         totalNumOfPages = parseInt(data);
                         laypage({
                             cont: $('#page'),
@@ -322,7 +325,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
                                 data: addData,
                                 datatype: "html",
                                 success: function (data) {
-                                   
+
                                     if (parseInt(data) == 200) {
                                         layer.msg("添加成功！");
                                     }

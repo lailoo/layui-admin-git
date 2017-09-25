@@ -5,8 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require("connectvars.php");
-
+require("websiteEntry.php");
 
 $tableName = $_GET["tablename"];
 $colNum = $_GET["colnum"];

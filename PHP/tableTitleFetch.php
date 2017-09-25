@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-require('connectvars.php');
+require("websiteEntry.php");
 $tableName = $_GET['tablename'];
 $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $dbc->query("SET NAMES utf8");

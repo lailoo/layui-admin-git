@@ -5,13 +5,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require("websiteEntry.php");
 $id = $_GET['id'];
 $tableName = $_GET['tablename'];
 $colNum = intval($_GET['colnum']);
 
 
-require("connectvars.php");
+
 $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $dbc->query("SET NAMES utf8");
 $query = "update " . $tableName." set" ;
