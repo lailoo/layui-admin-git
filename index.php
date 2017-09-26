@@ -1,6 +1,7 @@
 
 <?php
 require ('./PHP/websiteEntry.php');
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -45,7 +45,7 @@
 .layui-nav-tree .layui-nav-child dd.layui-this a:hover{ background-color:#009688; }
 
 /*右侧body*/
-.layui-table-body{overflow-x:auto;overflow-y:auto;width:1080px;height:400px;}
+/*.layui-table-body{overflow-x:auto;overflow-y:auto;width:1080px;height:400px;}*/
 .layui-table th{word-break:keep-all;}
 .layui-table td{word-break:normal;}
 .layui-body{overflow:hidden;}
@@ -92,7 +92,8 @@
 .admin-header-nav-item-li{vertical-align:top !important;}
 #unlock{ float: left; }
 .layui-nav-item-li{float: right;}
-#page{float :right;}
+
+/*#page{float :right;}*/
 #lock-box p{ color:#e60000; }
 /*头部*/
 

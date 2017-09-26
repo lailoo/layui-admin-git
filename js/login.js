@@ -236,94 +236,92 @@ layui.config({
 ////                   }
 ////               });
 //        })
-    $("body").on("click", "#loginSubmit", function () {
-        var formdata = $("#loginForm").serialize();
-        formdata += "&loginSubmit=";
-        $.ajax({
-            url: "./login.php",
-            type: "post",
-            data: formdata,
-            datatype: "html",
-            success: function (data) {
-                if (parseInt(data) == 200) {
-                    window.location.href = "../index.php";
-                } else {
-                    $("#loginForm .error-msg").html("账户不存在或密码错误,请重新输入!");
-                }
-            }
-        });
-        return false;
-    });
-    $("body").on("click", "#regSubmit", function () {
-        var formdata = $("#regForm").serialize();
-        formdata += "&regSubmit=";
-        if ($("#confirm_password").val() != $("#password").val()) {
-            $("#regForm .error-msg").html("两次密码输入不一致，请重新输入");
-        } else {
-            $.ajax({
-                url: "./login.php",
-                type: "post",
-                data: formdata,
-                datatype: "html",
-                success: function (data) {
-                    if (parseInt(data) == 200) {
-                        window.location.href = "../index.php";
-                    } else {
-                        $("#regForm .error-msg").html("注册失败，用户名已存在，请重新输入用户名！");
-                    }
-                }
-            });
-        }
-        return false;
-    });
-//	form.on("submit(loginForm)", function(data) {
-//                data.field.loginSubmit="";
-//                $.ajax({
-//                   url:"./login.php",
-//                   type:"post",
-//                   data:data.field,
-//                   datatype:"html",
-//                   success:function(data){
-//                       alert(data);
-//                       if(parseInt(data)==200){
-//                           window.location.href = "../index.php";
-//                       }else{
-//                           $("#loginForm .error-msg").html("账户不存在或密码错误,请重新输入!");
-//                       }
-//                   }
-//                });
-//		return false;
-//	});
+//    $("body").on("click", "#loginSubmit", function () {
+//        var formdata = $("#loginForm").serialize();
+//        formdata += "&loginSubmit=";
+//        $.ajax({
+//            url: "./login.php",
+//            type: "post",
+//            data: formdata,
+//            datatype: "html",
+//            success: function (data) {
+//                if (parseInt(data) == 200) {
+//                    window.location.href = "../index.php";
+//                } else {
+//                    $("#loginForm .error-msg").html("账户不存在或密码错误,请重新输入!");
+//                }
+//            }
+//        });
+//        return false;
+//    });
+//    $("body").on("click", "#regSubmit", function () {
+//        var formdata = $("#regForm").serialize();
+//        formdata += "&regSubmit=";
+//        if ($("#confirm_password").val() != $("#password").val()) {
+//            $("#regForm .error-msg").html("两次密码输入不一致，请重新输入");
+//        } else {
+//            $.ajax({
+//                url: "./login.php",
+//                type: "post",
+//                data: formdata,
+//                datatype: "html",
+//                success: function (data) {
+//                    if (parseInt(data) == 200) {
+//                        window.location.href = "../index.php";
+//                    } else {
+//                        $("#regForm .error-msg").html("注册失败，用户名已存在，请重新输入用户名！");
+//                    }
+//                }
+//            });
+//        }
+//        return false;
+//    });
+	form.on("submit(loginSubmit)", function(data) {
+                data.field.loginSubmit="";
+                $.ajax({
+                   url:"./login.php",
+                   type:"post",
+                   data:data.field,
+                   datatype:"html",
+                   success:function(data){
+                       if(parseInt(data)==200){
+                           window.location.href = "../index.php";
+                       }else{
+                           $("#loginForm .error-msg").html("账户不存在或密码错误,请重新输入!");
+                       }
+                   }
+                });
+		return false;
+	});
 
     /**
      * 登陆 form 表单
      */
-//	form.on("submit(regForm)", function(data) {
-//                data.field.regSubmit="";
-//                layer.alert(JSON.stringify(data.field));
-//                if(data.field.confirm_password!=data.field.password){
-//                    $("#regForm .error-msg").html("两次密码输入不一致，请重新输入");
-//                }else{
-//                    $.ajax({
-//                       url:"./login.php",
-//                       type:"post",
-//                       data:data.field,
-//                       datatype:"html",
-//                       success:function(data){
-//                           layer.alert(data);
-//                           if(parseInt(data)==200){
-//                               window.location.href = "../index.php";
-//                           }else{
-//                                $("#regForm .error-msg").html("注册失败，用户名已存在，请重新输入用户名！");
-//                           }
-//                       }
-//                    });
-//                }
-////                
-////		layer.alert(JSON.stringify(data.field));
+	form.on("submit(regSubmit)", function(data) {
+                data.field.regSubmit="";
+                layer.alert(JSON.stringify(data.field));
+                if(data.field.confirm_password!=data.field.password){
+                    $("#regForm .error-msg").html("两次密码输入不一致，请重新输入");
+                }else{
+                    $.ajax({
+                       url:"./login.php",
+                       type:"post",
+                       data:data.field,
+                       datatype:"html",
+                       success:function(data){
+                           if(parseInt(data)==200){
+                               window.location.href = "../index.php";
+                           }else{
+                                $("#regForm .error-msg").html("注册失败，用户名已存在，请重新输入用户名！");
+                           }
+                       }
+                    });
+                }
 //                
-//		return false;
-//	});
+//		layer.alert(JSON.stringify(data.field));
+                
+		return false;
+	});
 //
 //	/**
 //	 * 登陆 form 表单

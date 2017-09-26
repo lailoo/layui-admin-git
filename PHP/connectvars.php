@@ -17,5 +17,6 @@
   define('SYSTEMTABLENAME', "t_systeminfo");
   define('USERTABLE','t_userinfo');
   define('HOMEDIR','/layui-admin-git/');
+  define('ROOTDIR','/');
 ?>
 

@@ -5,11 +5,12 @@
  @Description: 点击对应按钮添加新窗口
  */
 var tabFilter, liIndex, curNav, delMenu;
-layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (exports) {
-    var element = layui.element(),
+layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], function (exports) {
+    var element = layui.element,
             layer = parent.layer === undefined ? layui.layer : parent.layer,
-            form = layui.form(),
+            form = layui.form,
             laypage = layui.laypage,
+            table = layui.table,
             $ = layui.jquery,
             layId,
             Tab = function () {
@@ -90,7 +91,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
                 if (_this.attr("data-url") != undefined) {
                     var tablePara = {tablename: _this.attr("data-url")};
 
-                    //获取表数据显示页面
+                    //获取表头页面
                     $.ajax({
                         url: "./PHP/tableTitleFetch.php",
                         type: "get",
@@ -102,8 +103,10 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
                                 content: data,
                                 id: new Date().getTime()
                             });
+
                             element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
                             that.bindEventForCurrTab();//获取表数据，完成页面的创建
+
 
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
@@ -125,63 +128,59 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery'], function (export
         //加载页面数据
         getList();
         //查询
+
     }
     function getList() {
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
-            curr: currpage, num: numPage, searchword: $(".search_input").val()};
-
+            searchword: $(".search_input").val()};
         $.ajax({
-            url: "./PHP/tableDataFetch.php",
+            url: "./PHP/tableDataCountFetch.php",
             type: "get",
             data: tableData,
             dataType: "html",
             success: function (data) {
 
-                //执行加载数据的方法
-                linksList(data);
-                var totalNumOfPages = 20;
-                $.ajax({
-                    url: "./PHP/tableDataCountFetch.php",
-                    type: "get",
-                    data: tableData,
-                    dataType: "html",
-                    success: function (data) {
-
-                        totalNumOfPages = parseInt(data);
-                        laypage({
-                            cont: $('#page'),
-                            pages: Math.ceil(totalNumOfPages / numPage),
-                            curr: currpage,
-                            jump: function (obj) {
-                                tableData.curr = obj.curr;
-                                tableData.num = numPage;
-                                $.ajax({
-                                    url: "./PHP/tableDataFetch.php",
-                                    type: "get",
-                                    data: tableData,
-                                    dataType: "html",
-                                    success: function (data) {
-                                        //执行加载数据的方法
-                                        linksList(data);
-                                    }
-                                }
-                                );
-                                form.render();
+                totalNumOfPages = parseInt(data);
+                laypage.render({
+                    elem: 'page',
+                    count: totalNumOfPages,
+                    layout:['count','prev','page','next','limit','skip'],
+                    jump: function (obj) {
+                        tableData.curr = obj.curr;
+                        tableData.limit = obj.limit;
+                        tableData.searchword = $(".search_input").val();
+                        $.ajax({
+                            url: "./PHP/tableDataFetch.php",
+                            type: "get",
+                            data: tableData,
+                            dataType: "html",
+                            success: function (data) {
+                                //执行加载数据的方法
+                                linksList(data);
                             }
-                        })
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-                        alert(XMLHttpRequest.status);
-                        alert(XMLHttpRequest.readyState);
-                        alert(textStatus); // paser error;
-                    },
+                        });
+                        form.render();
+                    }
                 })
-            }
-        })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus); // paser error;
+            },
+        });
+
+    }
+    function showTable(){
+        table.init("curr_table", {
+            height: 390
+        });
     }
     function linksList(that) {
         $(".links_content").html(that);
+        showTable();
     }
+    
     //全选
     form.on('checkbox(allChoose)', function (data) {
         var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
