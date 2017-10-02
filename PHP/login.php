@@ -143,7 +143,6 @@ if (!isset($_COOKIE['user_id'])) {
                                                         <input type="password" name="confirm_password" id="confirm_password" placeholder="请输入确认密码" autocomplete="off" class="layui-input" lay-verify="required">
                                                     </div>
                                                 </div>
-
                                                 <div class="layui-form-item ipt-text">
                                                     <div class="dp-block">
                                                         <i class="layui-icon">&#xe612;</i>

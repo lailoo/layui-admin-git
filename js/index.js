@@ -1,10 +1,11 @@
 var $, tab, skyconsWeather;
 layui.config({
     base: "js/"
-}).use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
+}).use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'layedit'], function () {
     var form = layui.form,
-            layer = layui.layer,
-            element = layui.element;
+            layer = layui.layer;
+
+
     $ = layui.jquery;
     tab = layui.bodyTab();
 
@@ -28,9 +29,6 @@ layui.config({
 
     // 添加新窗口
     $(".layui-nav .layui-nav-item a ").on("click", function () {
-
-        addTab($(this));
-        $(this).parent("li").siblings().removeClass("layui-nav-itemed");
         if ($(this)[0] == $("#link_updateuserinfo")[0]) {
 
         } else if ($(this)[0] == $("#link_updatepassword")[0]) {
@@ -69,7 +67,6 @@ layui.config({
                                         }
                                     }
                                 });
-
                                 return false;
                             });
                             layero.find("#submitcancel").click(function () {
@@ -91,9 +88,13 @@ layui.config({
                     }
                 }
             });
+        } else if ($(this).attr('data-url') == "questionnaire") {
+            alert(Date.parse(new Date()));
+        } else {
+            addTab($(this));
+            $(this).parent("li").siblings().removeClass("layui-nav-itemed");
         }
     });
-
 })
 //打开新窗口
 function addTab(_this) {

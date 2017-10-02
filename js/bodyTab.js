@@ -5,6 +5,7 @@
  @Description: 点击对应按钮添加新窗口
  */
 var tabFilter, liIndex, curNav, delMenu;
+var currtaptitle = "";
 layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], function (exports) {
     var element = layui.element,
             layer = parent.layer === undefined ? layui.layer : parent.layer,
@@ -20,7 +21,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                     tabFilter: "bodyTab"
                 }
             };
-    var currtaptitle = "";
+    
     //显示左侧菜单
     if ($(".navBar").html() == '') {
         var _this = this;
@@ -91,7 +92,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                 if (_this.attr("data-url") != undefined) {
                     var tablePara = {tablename: _this.attr("data-url")};
 
-                    //获取表头页面
+                    //获取表头信息
                     $.ajax({
                         url: "./PHP/tableTitleFetch.php",
                         type: "get",
@@ -144,7 +145,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                 laypage.render({
                     elem: 'page',
                     count: totalNumOfPages,
-                    layout:['count','prev','page','next','limit','skip'],
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
                     jump: function (obj) {
                         tableData.curr = obj.curr;
                         tableData.limit = obj.limit;
@@ -171,7 +172,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         });
 
     }
-    function showTable(){
+    function showTable() {
         table.init("curr_table", {
             height: 390
         });
@@ -180,7 +181,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         $(".links_content").html(that);
         showTable();
     }
-    
+
     //全选
     form.on('checkbox(allChoose)', function (data) {
         var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
@@ -256,7 +257,6 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
     });
 
     $("body").on("click", ".search_btn", function () {
-        var newArray = [];
         if ($(".search_input").val() != '') {
             var index = layer.msg('查询中，请稍候', {icon: 16, time: false, shade: 0.8});
             getList();
@@ -271,7 +271,6 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         var _this = $(this);
         layer.confirm('确定删除此信息？', {icon: 3, title: '提示信息'}, function (index) {
             data = {tablename: $("#curr_table").attr("tablename"), dataid: _this.attr('data-id')};
-
             $.ajax({
                 url: "./PHP/tableDataDel.php",
                 type: "get",
@@ -291,62 +290,93 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
 
     //添加友情链接
     $("body").on("click", ".linksAdd_btn", function () {
+
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
             curr: currpage, num: numPage, searchword: $(".search_input").val()};
-        $.ajax({
-            url: "./PHP/tableDataAdd.php",
-            type: 'get',
-            data: tableData,
-            datatype: 'html',
-            success: function (data) {
-                layer.open({
-                    title: "数据添加",
-                    type: 1,
-                    content: data,
-                    shade: 0.9,
-                    closeBtn: 2,
-                    area: ['50%', '80%'],
-                    cancel: function (index) {
-                        layer.close(index);
-                    },
-                    success: function (layero, index) {
-                        form.render();
-                        layero.on("click", "#submitadd", function () {
-
-                            var addData = layero.find("#tableDataAddForm").serialize();
-
-                            addData += "&tablename=" + layero.find("#tableDataAddForm").attr("tablename");
-                            addData += "&colnum=" + layero.find("#tableDataAddForm").attr("colnum");
-
-                            $.ajax({
-                                url: "./PHP/tableDataAddProc.php",
-                                type: "get",
-                                data: addData,
-                                datatype: "html",
-                                success: function (data) {
-
-                                    if (parseInt(data) == 200) {
-                                        layer.msg("添加成功！");
-                                    }
-                                    getList();
-                                    layer.close(index);
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-                                    alert(XMLHttpRequest.status);
-                                    alert(XMLHttpRequest.readyState);
-                                    alert(errorThrown); // paser error;
-                                }
-                            });
-                            return false;
-                        });
-                        layero.on("click", "#submitcancel", function () {
-                            layer.close(index);
-                        });
-                        form.render();
-                    }
-                })
+        //添加文章，弹出窗口显示一个编辑页面
+      
+        if (tableData.tablename == "t_articleinfo") {
+            var thisTab=  new Tab();
+            var ueditorTag = "<script id='container' name='content' type='text/plain'>请编辑你的文章</script>";
+            var articleTitle="文章添加";
+            tabFilter = thisTab.tabConfig.tabFilter;
+            //删除当前tab
+            if (currtaptitle != "" && currtaptitle != "后台首页") {
+                element.tabDelete(tabFilter, thisTab.getLayId(currtaptitle));
             }
-        })
+            var title="";
+            tabIdIndex++;
+            title+='<i class="layui-icon"> &#xe631</i>';
+            title += '<cite>'+articleTitle+'</cite>';
+             //保存当前tap的title
+            currtaptitle=articleTitle;
+            title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + tabIdIndex + '">&#x1006;</i>';
+            element.tabAdd(tabFilter, {
+                                title: title,
+                                content: ueditorTag,
+                                id: new Date().getTime()
+                            });
+            var ue=UE.getEditor("container",{
+                initialFrameHeight :400
+            });
+            element.tabChange(tabFilter, thisTab.getLayId(articleTitle)).init();
+        } else {
+            $.ajax({
+                url: "./PHP/tableDataAdd.php",
+                type: 'get',
+                data: tableData,
+                datatype: 'html',
+                success: function (data) {
+                    layer.open({
+                        title: "数据添加",
+                        type: 1,
+                        content: data,
+                        shade: 0.9,
+                        closeBtn: 2,
+                        area: ['50%', '80%'],
+                        cancel: function (index) {
+                            layer.close(index);
+                        },
+                        success: function (layero, index) {
+                            form.render();
+                            layero.on("click", "#submitadd", function () {
+
+                                var addData = layero.find("#tableDataAddForm").serialize();
+
+                                addData += "&tablename=" + layero.find("#tableDataAddForm").attr("tablename");
+                                addData += "&colnum=" + layero.find("#tableDataAddForm").attr("colnum");
+
+                                $.ajax({
+                                    url: "./PHP/tableDataAddProc.php",
+                                    type: "get",
+                                    data: addData,
+                                    datatype: "html",
+                                    success: function (data) {
+
+                                        if (parseInt(data) == 200) {
+                                            layer.msg("添加成功！");
+                                        }
+                                        getList();
+                                        layer.close(index);
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+                                        alert(XMLHttpRequest.status);
+                                        alert(XMLHttpRequest.readyState);
+                                        alert(errorThrown); // paser error;
+                                    }
+                                });
+                                return false;
+                            });
+                            layero.on("click", "#submitcancel", function () {
+                                layer.close(index);
+                            });
+                            form.render();
+                        }
+                    })
+                }
+            });
+        }
+
     });
 
     //批量删除

@@ -30,12 +30,12 @@ require ('./PHP/websiteEntry.php');
                         <li class="layui-nav-item admin-header-nav-item-li" pc>
                             <a href="../phpmyadmin/" target="_blank"><i class="iconfont icon-gonggao"></i><cite>phpMyAdmin数据库管理工具</cite></a>
                         </li>
-                        <li class="layui-nav-item" mobile>
+<!--                        <li class="layui-nav-item" mobile>
                             <a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
                         </li>
                         <li class="layui-nav-item" mobile>
                             <a href="javascript:;"><i class="iconfont icon-loginout"></i> 退出</a>
-                        </li>
+                        </li>-->
                         <li class="layui-nav-item admin-header-nav-item-li" pc>
                             <a id="link_signout"><i class="iconfont icon-loginout"><img src="images/face.jpg" class="layui-circle" width="35" height="35"></i><cite>退出</cite></a>
 <!--                            <a href="javascript:;">
@@ -52,7 +52,7 @@ require ('./PHP/websiteEntry.php');
                 </div>
             </div>
             <!-- 左侧导航 -->
-            <div class="layui-side layui-bg-black">
+            <div class="layui-side layui-bg-black heightOfNavAndBody layui-side-this">
                 <div class="user-photo">
                     <a class="img" title="我的头像" ><img src="images/face.jpg"></a>
                     <p>你好！<span class="userName"><?php echo $_COOKIE['user_name'] ?></span>， 欢迎登录</p>
@@ -60,7 +60,7 @@ require ('./PHP/websiteEntry.php');
                 <div class="navBar layui-side-scroll"></div>
             </div>
             <!-- 右侧内容 -->
-            <div class="layui-body layui-form">
+            <div class="layui-body layui-form heightOfNavAndBody">
                 <div class="layui-tab marg0" lay-filter="bodyTab">
                     <ul class="layui-tab-title top_tab">
                         <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
@@ -72,16 +72,21 @@ require ('./PHP/websiteEntry.php');
                     </div>
                 </div>
             </div>
-            <!-- 底部 -->
+<!--             底部 
             <div class="layui-footer footer">
                 <p>copyright @2017 </p>
-            </div>
+            </div>-->
         </div>
 
         <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
         <div class="site-mobile-shade"></div>
 
         <script type="text/javascript" src="layui/layui.js"></script>
+        <!-- 配置文件 -->
+        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.all.min.js"></script>
+        
         <script type="text/javascript" src="js/nav.js"></script>
         <script type="text/javascript" src="js/leftNav.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

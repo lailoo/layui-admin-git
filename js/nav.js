@@ -21,7 +21,7 @@ var navs = [{
 },{
 	"title" : "问卷管理",
 	"icon" : "&#xe61c;",
-	"href" : "page/404.html",
+	"href" : "questionnaire",
 	"spread" : false
 },{
 	"title" : "文章管理",

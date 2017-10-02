@@ -39,7 +39,7 @@ $col_width=120;
                     <?php
                     if ($num_row == 0) {
                         for ($i = 1; $i <= TOTALFIELDNUMS; $i++) {
-                            echo "<th lay-data=\"{field:'field_$i',width:$col_width,sort:true}\">field_\"$i\"</th>";
+                            echo "<th lay-data=\"{field:'field_$i',width:$col_width,sort:true}\">field_$i</th>";
                         }
                     } else {
                         $i=1;
