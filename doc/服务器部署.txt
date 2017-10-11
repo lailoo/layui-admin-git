@@ -1,0 +1,7 @@
+1.phpmyadmin网址：<a href="http://39.108.221.230/phpmyadmin/" target="_blank"><i class="iconfont icon-gonggao"></i><cite>phpMyAdmin数据库管理工具</cite></a>
+
+
+2.cookie设置
+setcookie('user_id', $row['id'], 0, HOMEDIR);
+            setcookie("user_name", $username, 0, HOMEDIR);
+...
