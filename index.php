@@ -90,5 +90,6 @@ require ('./PHP/websiteEntry.php');
         <script type="text/javascript" src="js/nav.js"></script>
         <script type="text/javascript" src="js/leftNav.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script> 
     </body>
 </html>

@@ -91,33 +91,43 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                 title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + tabIdIndex + '">&#x1006;</i>';
                 if (_this.attr("data-url") != undefined) {
                     var tablePara = {tablename: _this.attr("data-url")};
+                    if (tablePara.tablename == "t_dynamicdatashow") {
+                        //对标判断页面进行特殊处理
+                        var src='./page/mapexample.html';
+                        element.tabAdd(tabFilter, {
+                                    title: title,
+                                    content: "<iframe src=\" "+src+" \" frameborder=0></iframe>",
+                                    id: new Date().getTime()
+                                });
+                        element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
+                    } else {
+                        //常规表格页面获取
+                        //获取表头信息
+                        $.ajax({
+                            url: "./PHP/tableTitleFetch.php",
+                            type: "get",
+                            data: tablePara,
+                            dataType: "html",
+                            success: function (data) {
+                                element.tabAdd(tabFilter, {
+                                    title: title,
+                                    content: data,
+                                    id: new Date().getTime()
+                                });
 
-                    //获取表头信息
-                    $.ajax({
-                        url: "./PHP/tableTitleFetch.php",
-                        type: "get",
-                        data: tablePara,
-                        dataType: "html",
-                        success: function (data) {
-                            element.tabAdd(tabFilter, {
-                                title: title,
-                                content: data,
-                                id: new Date().getTime()
-                            });
-
-                            element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
-                            that.bindEventForCurrTab();//获取表数据，完成页面的创建
+                                element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
+                                that.bindEventForCurrTab();//获取表数据，完成页面的创建
 
 
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-                            alert(XMLHttpRequest.status);
-                            alert(XMLHttpRequest.readyState);
-                            alert(errorThrown); // paser error;
-                        },
-                    });
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+                                alert(XMLHttpRequest.status);
+                                alert(XMLHttpRequest.readyState);
+                                alert(errorThrown); // paser error;
+                            },
+                        });
+                    }
                 }
-
             } else {
                 element.tabChange(tabFilter, that.getLayId(_this.find("cite").text()));
             }
@@ -420,11 +430,11 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
             layer.msg("文章内容不能为空,请编辑文章内容！");
             return false;
         }
-        if ($.trim($("#articleTitle").val())=="") {
+        if ($.trim($("#articleTitle").val()) == "") {
             layer.msg("文章标题不能为空,请编辑文章标题！");
             return false;
         }
-        
+
 //        layer.msg( ue.getAllHtml());
 //        layer.msg(ue.getContent());
         var articleContent = $('#articleAddForm').serialize();
@@ -445,9 +455,9 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
 //                layer.msg(data);
                 if (parseInt(data) == 200) {
                     layer.msg("文章插入成功!请继续编辑新文章。");
-                }else{
-                    layer.msg("文章提交失败，错误信息如下："+data,{
-                        icon:5
+                } else {
+                    layer.msg("文章提交失败，错误信息如下：" + data, {
+                        icon: 5
                     });
                 }
             },

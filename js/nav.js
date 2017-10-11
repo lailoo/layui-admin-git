@@ -51,7 +51,7 @@ var navs = [{
 		{
 			"title" : "动态数据显示",
 			"icon" : "&#xe631;",
-			"href" : "page/404.html",
+			"href" : "t_dynamicdatashow",
 			"spread" : false
 		}
 	]

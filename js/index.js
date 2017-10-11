@@ -29,6 +29,7 @@ layui.config({
 
     // 添加新窗口
     $(".layui-nav .layui-nav-item a ").on("click", function () {
+        //用户信息的分支
         if ($(this)[0] == $("#link_updateuserinfo")[0]) {
 
         } else if ($(this)[0] == $("#link_updatepassword")[0]) {
@@ -89,7 +90,18 @@ layui.config({
                 }
             });
         } else if ($(this).attr('data-url') == "questionnaire") {
-            alert(Date.parse(new Date()));
+            
+            var appkey='wjrk1gycdidtoip31u';
+            var appsecret='06caaf5b6d9f8688081399e89b740274';
+            var timestamp=Date.parse(new Date())/1000;
+           
+            var user='dsbliu';
+            
+            var signature=md5(appkey+timestamp+user+appsecret);
+            var questionaire_href="https://www.wenjuan.com/openapi/v3/login/?"+
+                "wj_appkey="+appkey+"&wj_user="+user+"&wj_timestamp="+timestamp+"&wj_signature="+signature;
+            window.location.href=questionaire_href;
+            
         } else {
             addTab($(this));
             $(this).parent("li").siblings().removeClass("layui-nav-itemed");
