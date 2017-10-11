@@ -38,13 +38,26 @@ $col_width=120;
                     <th lay-data="{field:'id',width:80,sort:true}">ID</th>
                     <?php
                     if ($num_row == 0) {
+                        
                         for ($i = 1; $i <= TOTALFIELDNUMS; $i++) {
-                            echo "<th lay-data=\"{field:'field_$i',width:$col_width,sort:true}\">field_$i</th>";
+                            $curr_col_width=0;
+                            if($i==2&&$tableName==ARTICLETABLENAME){
+                                $curr_col_width=$col_width*6;
+                            }else{
+                                $curr_col_width=$col_width;
+                            }
+                            echo "<th lay-data=\"{field:'field_$i',width:$curr_col_width,sort:true}\">field_$i</th>";
                         }
                     } else {
                         $i=1;
                         while ($row = mysqli_fetch_array($result)) {
-                            echo "<th lay-data=\"{field:'field_$i',width:$col_width,sort:true}\">".$row['field_3']."</th>";
+                            $curr_col_width=0;
+                            if($i==2&&$tableName==ARTICLETABLENAME){
+                                $curr_col_width=$col_width*6;
+                            }else{
+                                $curr_col_width=$col_width;
+                            }
+                            echo "<th lay-data=\"{field:'field_$i',width:$curr_col_width,sort:true}\">".$row['field_3']."</th>";
                             $i++;
                         }
                     }

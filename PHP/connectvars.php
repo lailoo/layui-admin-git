@@ -15,6 +15,7 @@
   define('EXTENDBUILDINGTABLE_NAME', "t_extendbuildinginfo");
   define('TOTALFIELDNUMS', "35");
   define('SYSTEMTABLENAME', "t_systeminfo");
+  define('ARTICLETABLENAME', "t_articleinfo");
   define('USERTABLE','t_userinfo');
   define('HOMEDIR','/layui-admin-git/');
   define('ROOTDIR','/');

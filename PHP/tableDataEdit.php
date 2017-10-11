@@ -44,7 +44,7 @@ $dataRow = mysqli_fetch_array($dataResult);
                 } else {
                     $selectionArray = explode(',', trim($titleRow["field_5"]));
                     echo "<select name='field_$i' lay-verify='' lay-search>";
-                    echo "<option value='".$dataRow["field_$i"]."'>".$dataRow["field_$i"]."</option>";
+                    echo "<option value='".htmlspecialchars($dataRow["field_$i"])."'>".htmlspecialchars($dataRow["field_$i"])."</option>";
                     foreach ($selectionArray as $option) {
                         echo "<option value='$option'>$option</option>";
                     }

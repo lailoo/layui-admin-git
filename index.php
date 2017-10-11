@@ -85,7 +85,7 @@ require ('./PHP/websiteEntry.php');
         <!-- 配置文件 -->
         <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.config.js"></script>
         <!-- 编辑器源码文件 -->
-        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.all.min.js"></script>
+        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.all.js"></script>
         
         <script type="text/javascript" src="js/nav.js"></script>
         <script type="text/javascript" src="js/leftNav.js"></script>

@@ -21,7 +21,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                     tabFilter: "bodyTab"
                 }
             };
-    
+
     //显示左侧菜单
     if ($(".navBar").html() == '') {
         var _this = this;
@@ -289,36 +289,73 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
     });
 
     //添加友情链接
+    var ue;
     $("body").on("click", ".linksAdd_btn", function () {
 
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
             curr: currpage, num: numPage, searchword: $(".search_input").val()};
         //添加文章，弹出窗口显示一个编辑页面
-      
+
         if (tableData.tablename == "t_articleinfo") {
-            var thisTab=  new Tab();
-            var ueditorTag = "<script id='container' name='content' type='text/plain'>请编辑你的文章</script>";
-            var articleTitle="文章添加";
+            var thisTab = new Tab();
+
+            //
+            var articleAddPageContent = "<form action='' id='articleAddForm' class='layui-form' >"
+            articleAddPageContent += "<div class=\"layui-form-item\" style=\"width:500px\">" +
+                    "<label class=\"layui-form-label\" >文章标题：</label>" +
+                    "<div class=\"layui-input-block\">" +
+                    "<input type='text' class='layui-input' id='articleTitle' name='articleTitle' placeholder='请在这里输入你的文档标题'  lay-verify='required'>" +
+                    "</div>" +
+                    "</div>";
+
+            articleAddPageContent += "<script id='container' name='content' type='text/plain'>请编辑新的文档</script>";
+            articleAddPageContent += " <div class='layui-form-item' style='margin:10px;'>" +
+                    "<div class=\"layui-input-block\">" +
+                    "<button type=\"button\" class=\"layui-btn layui-btn-normal dp-block\"  id=\"articleAddSubmit\">文档提交</button>" +
+                    "<button class=\"layui-btn\" id=\"articleContentClear\">清空文档</button>"
+                    + "</div>"
+                    + "</div>";
+            articleAddPageContent += "</form>";
+            //
+
+
+            var articleTitle = "文章添加";
             tabFilter = thisTab.tabConfig.tabFilter;
             //删除当前tab
             if (currtaptitle != "" && currtaptitle != "后台首页") {
                 element.tabDelete(tabFilter, thisTab.getLayId(currtaptitle));
             }
-            var title="";
+
+            //
+            var title = "";
             tabIdIndex++;
-            title+='<i class="layui-icon"> &#xe631</i>';
-            title += '<cite>'+articleTitle+'</cite>';
-             //保存当前tap的title
-            currtaptitle=articleTitle;
+            title += '<i class="layui-icon"> &#xe631</i>';
+            title += '<cite>' + articleTitle + '</cite>';
+            //保存当前tap的title
+            currtaptitle = articleTitle;
             title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + tabIdIndex + '">&#x1006;</i>';
+
+            //
             element.tabAdd(tabFilter, {
-                                title: title,
-                                content: ueditorTag,
-                                id: new Date().getTime()
-                            });
-            var ue=UE.getEditor("container",{
-                initialFrameHeight :400
+                title: title,
+                content: articleAddPageContent,
+                id: new Date().getTime()
             });
+            //利用全局变量来实现tab标签页面切换时的ueditor不能重新加载的问题
+            if (typeof (ue) != "undefined") {
+                ue.destroy();
+            }
+
+
+            //
+            var initialFrameHeight = 300;
+            ue = UE.getEditor("container", {
+                initialFrameHeight: initialFrameHeight,
+                autoHeightEnabled: false
+//                toolbars: [['fullscreen', 'source', 'undo', 'redo', 'indent', 'bold', 'italic', 'underline', 'fontborder', 'snapscreen', 'print', 'preview', 'link', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells', 'fontfamily', 'fontsize', 'simpleupload', 'insertimage', 'spechars', 'searchreplace', 'justifyleft', 'justifyright', 'justifycenter'],
+//                    ['justifyjustify', 'forecolor', 'backcolor', 'attachment', 'imagecenter', 'wordimage', 'inserttable', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']],
+            });
+            //
             element.tabChange(tabFilter, thisTab.getLayId(articleTitle)).init();
         } else {
             $.ajax({
@@ -378,7 +415,54 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         }
 
     });
+    $('body').on("click", '#articleAddSubmit', function () {
+        if (!ue.hasContents()) {
+            layer.msg("文章内容不能为空,请编辑文章内容！");
+            return false;
+        }
+        if ($.trim($("#articleTitle").val())=="") {
+            layer.msg("文章标题不能为空,请编辑文章标题！");
+            return false;
+        }
+        
+//        layer.msg( ue.getAllHtml());
+//        layer.msg(ue.getContent());
+        var articleContent = $('#articleAddForm').serialize();
+        if (!ue.hasContents()) {
+            layer.msg("文章内容不能为空,请编辑文章内容！");
+            return false;
+        }
+        articleContent += "&allhtml=" + ue.getAllHtml();
+//        articleContent += "&articlecContent=" + ue.getContent();
+//        alert(articleContent);
+        $.ajax({
+            url: "./PHP/articleAddProc.php",
+            type: "post",
+            datatype: "html",
+            data: articleContent,
+            success: function (data) {
+//                alert(data);
+//                layer.msg(data);
+                if (parseInt(data) == 200) {
+                    layer.msg("文章插入成功!请继续编辑新文章。");
+                }else{
+                    layer.msg("文章提交失败，错误信息如下："+data,{
+                        icon:5
+                    });
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(errorThrown); // paser error;
+            }
+        });
 
+    });
+    $('body').on("click", '#articleContentClear', function () {
+        ue.execCommand('cleardoc');
+        return false;
+    });
     //批量删除
     $("body").on("click", ".batchDel", function () {
         var $checkbox = $('.links_list tbody input[type="checkbox"][name="checked"]');

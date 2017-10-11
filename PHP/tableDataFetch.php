@@ -26,7 +26,7 @@ while ($row = mysqli_fetch_array($result)) {
             . '<td>' . $row['id'] . '</td>';
     $realColNum = $colNum == 0 ? TOTALFIELDNUMS : $colNum;
     for ($i = 1; $i <= $realColNum; $i++) {
-        $dataHtml.= '<td>' . $row["field_$i"] . '</td>';
+        $dataHtml.= '<td>' . htmlspecialchars($row["field_$i"]). '</td>';
     }
     $dataHtml.= '<td>'
             . '<a class="layui-btn layui-btn-mini links_edit" data-id="' . $row['id'] . '" ><i class="layui-icon">&#xe642;</i> 编辑</a>'
