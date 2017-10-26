@@ -1,3 +1,9 @@
+
+* {
+    /* -webkit-box-sizing: border-box; */
+    /*-moz-box-sizing: border-box;*/
+    box-sizing: content-box !important;
+}
 /*公共样式*/
 .main_body{ min-width:320px; }
 .layui-elem-quote.title{ padding:10px 15px; margin-bottom:0; }
@@ -135,5 +141,6 @@
 	.top_menu .layui-nav-item.showNotice[pc]{ display:none !important; }
 	.panel{ width:100%; }
 }
+
 
 

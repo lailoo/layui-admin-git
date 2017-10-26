@@ -26,8 +26,12 @@ $col_width=120;
         <a class="layui-btn search_btn">查询</a>
     </div>
     <div class="layui-inline">
-        <a class="layui-btn linksAdd_btn" style="background-color:#5FB878">添加链接</a>
+        <a class="layui-btn linksAdd_btn" style="background-color:#5FB878">单条添加<a>
     </div>
+    <div class="layui-inline">
+        <a class="layui-btn excelBatchImport" style="background-color:#FF5722">批量导入</a>
+    </div>
+    
 
 </blockquote>
 <div class="childrenBody ">
@@ -35,6 +39,7 @@ $col_width=120;
         <table  lay-filter="curr_table" id="curr_table" tablename="<?php echo $tableName ?>"  colnum="<?php echo $num_row == 0 ? TOTALFIELDNUMS : $num_row ?>">
             <thead>
                 <tr>
+                    <th lay-data={field:'operation',width:120}>操作</th>
                     <th lay-data="{field:'id',width:80,sort:true}">ID</th>
                     <?php
                     if ($num_row == 0) {
@@ -62,7 +67,7 @@ $col_width=120;
                         }
                     }
                     ?>
-                    <th lay-data={field:'operation',width:150}>操作</th>
+                    
                 </tr> 
             </thead>
             <tbody class="links_content"></tbody>

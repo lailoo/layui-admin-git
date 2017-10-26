@@ -23,16 +23,16 @@ $dataHtml = "";
 
 while ($row = mysqli_fetch_array($result)) {
     $dataHtml .= '<tr>'
+            .'<td>'
+            . '<a class="layui-btn layui-btn-mini links_edit" data-id="' . $row['id'] . '" ><i class="layui-icon">&#xe642;</i> 编辑</a>'
+            . '<a class="layui-btn layui-btn-danger layui-btn-mini links_del" data-id="' . $row['id'] . '"><i class="layui-icon">&#xe640;</i> 删除</a>'
+            . '</td>'
             . '<td>' . $row['id'] . '</td>';
     $realColNum = $colNum == 0 ? TOTALFIELDNUMS : $colNum;
     for ($i = 1; $i <= $realColNum; $i++) {
         $dataHtml.= '<td>' . htmlspecialchars($row["field_$i"]). '</td>';
     }
-    $dataHtml.= '<td>'
-            . '<a class="layui-btn layui-btn-mini links_edit" data-id="' . $row['id'] . '" ><i class="layui-icon">&#xe642;</i> 编辑</a>'
-            . '<a class="layui-btn layui-btn-danger layui-btn-mini links_del" data-id="' . $row['id'] . '"><i class="layui-icon">&#xe640;</i> 删除</a>'
-            . '</td>'
-            . '</tr>';
+    $dataHtml.=  '</tr>';
 }
 echo $dataHtml;
 mysqli_close($dbc);

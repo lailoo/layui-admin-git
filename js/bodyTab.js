@@ -93,12 +93,12 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                     var tablePara = {tablename: _this.attr("data-url")};
                     if (tablePara.tablename == "t_dynamicdatashow") {
                         //对标判断页面进行特殊处理
-                        var src='./page/mapexample.html';
+                        var src = './page/mapexample.html';
                         element.tabAdd(tabFilter, {
-                                    title: title,
-                                    content: "<iframe src=\" "+src+" \" frameborder=0></iframe>",
-                                    id: new Date().getTime()
-                                });
+                            title: title,
+                            content: "<iframe src=\" " + src + " \" frameborder=0></iframe>",
+                            id: new Date().getTime()
+                        });
                         element.tabChange(tabFilter, that.getLayId(_this.find("cite").text())).init();
                     } else {
                         //常规表格页面获取
@@ -265,7 +265,20 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
             }
         });
     });
-
+    $("body").on('click', '.excelBatchImport', function () {
+        var excelFileImportPageContent="./page/excelFileUpload.html"
+        var pageTitle = "Excel文件上传";
+        layer.open({
+            type: 2,
+            title: pageTitle,
+            area: ["60%", "80%"],
+            content: excelFileImportPageContent,
+            cancel: function (index) {
+                layer.close(index);
+                getList();
+            }
+        });
+    });
     $("body").on("click", ".search_btn", function () {
         if ($(".search_input").val() != '') {
             var index = layer.msg('查询中，请稍候', {icon: 16, time: false, shade: 0.8});
@@ -305,7 +318,6 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
             curr: currpage, num: numPage, searchword: $(".search_input").val()};
         //添加文章，弹出窗口显示一个编辑页面
-
         if (tableData.tablename == "t_articleinfo") {
             var thisTab = new Tab();
 

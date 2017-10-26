@@ -115,5 +115,9 @@ insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_articleinfo'
 #--------------------------------------------------------------------------------
 #---------------修改文章内容类型为text-----------------------------
 alter table t_articleinfo MODIFY column field_2 text(20000);
+
+#--------------------------------------------------------------------------------
+#--------------  获取数据库中的表-----------------------------
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '数据库名'
  
  

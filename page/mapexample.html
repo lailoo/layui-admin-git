@@ -1,40 +1,179 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>动态数据展示</title>
-    <!-- 引入 echarts.js -->
-    <script src="../js/echarts.js"></script>
-</head>
-<body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px;height:400px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+    <head>
+        <meta charset="utf-8">
+        <title>动态数据展示</title>
+        <!-- 引入 echarts.js -->
+        <script src="../js/echarts.js"></script>
+        <script src="../js/theme/essos.js"></script>
+    </head>
+    <body>
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div id="main" style="width: 2500px;height:1400px;"></div>
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'), 'westeros');
+            var circle = 'circle';
+            var rect = 'diamond';
+            var arrow = 'triangle';
+            var fontSize = 40;
+            var symbolSize = 35;
+            var nameGap = symbolSize * 2;
+            var firstName = "FeedLM";
+            var secondName = "PostLM";
+            var thirdName = "BM25 baseline";
+            var xAxisLabel = [30,40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470, 480, 490, 500];
+//            var data1=[];
+//            var data2=[];
+//            var data2=[];
+//            var data2=[];
+//            var data2=[];
+//            var data2=[];
+            var data1 = [[30,0.2641], [40,0.2683], [50,0.2698], [60,0.2717], [70,0.2716], [80,0.2709], [90,0.2721], [100,0.2721], [110,0.2722], [120,0.272], [130,0.2716], [140,0.2719], [150,0.2719], [160,0.272], [170,0.2718], [180,0.2721], [190,0.2724], [200,0.2722], [210,0.2722], [220,0.2721], [230,0.2721], [240,0.272], [250,0.272], [260,0.2717], [270,0.2715], [280,0.2714], [290,0.2715], [300,0.2715], [310,0.2715], [320,0.2718], [330,0.2716], [340,0.2715], [350,0.2715], [360,0.2716], [370,0.2715], [380,0.2714], [390,0.2714], [400,0.271], [410,0.271], [420,0.2709], [430,0.2708], [440,0.2708], [450,0.2706], [460,0.2706], [470,0.2706], [480,0.2707], [490,0.2706], [500,0.2705]];
+            var data2 = [[30,0.2584], [40,0.2639], [50,0.2662], [60,0.2672], [70,0.2668], [80,0.2669], [90,0.2667], [100,0.2664], [110,0.2661], [120,0.2658], [130,0.2658], [140,0.2657], [150,0.2659], [160,0.2658], [170,0.2655], [180,0.2653], [190,0.2651], [200,0.2648], [210,0.2643], [220,0.2641], [230,0.2639], [240,0.2638], [250,0.2637], [260,0.2635], [270,0.2636], [280,0.2635], [290,0.2633], [300,0.2631], [310,0.263], [320,0.2627], [330,0.263], [340,0.2628], [350,0.2627], [360,0.2626], [370,0.2626], [380,0.2626], [390,0.2624], [400,0.2623], [410,0.2622], [420,0.2621], [430,0.2621], [440,0.262], [450,0.262], [460,0.2619], [470,0.2619], [480,0.2619], [490,0.2619], [500,0.2618]];
+            var data3 = [[30,0.258], [40,0.258], [50,0.258], [60,0.258], [70,0.258], [80,0.258], [90,0.258], [100,0.258], [110,0.258], [120,0.258], [130,0.258], [140,0.258], [150,0.258], [160,0.258], [170,0.258], [180,0.258], [190,0.258], [200,0.258], [210,0.258], [220,0.258], [230,0.258], [240,0.258], [250,0.258], [260,0.258], [270,0.258], [280,0.258], [290,0.258], [300,0.258], [310,0.258], [320,0.258], [330,0.258], [340,0.258], [350,0.258], [360,0.258], [370,0.258], [380,0.258], [390,0.258], [400,0.258], [410,0.258], [420,0.258], [430,0.258], [440,0.258], [450,0.258], [460,0.258], [470,0.258], [480,0.258], [490,0.258], [500,0.258]];
+            var miny = 0.255;
+            var maxy = 0.28;
+            var option = {
+                grid: {
+                    show: false,
+                    bottom: "10%"
+                },
+                legend: {
+                    textStyle: {
+                        fontSize: fontSize
+                    },
+                    itemWidth: symbolSize,
+                    itemHeight: symbolSize,
+                    data: [{
+                            name: firstName,
+                            icon: circle
+                        },
+                        {
+                            name: secondName,
+                            icon: rect,
+                        },
+                        {
+                            name: thirdName,
+                            icon: arrow
+                        }],
+                    orient: 'vertical',
+                    left: "75%",
+                    top: "6%"
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        saveAsImage: {show: true}
+                    }
+                },
+                xAxis: [
+                    {
+//                        data: xAxisLabel,
+                        type: "value",
+                        name: "β",
+                        nameGap: nameGap,
+                        nameLocation: 'middle',
+                        nameTextStyle: {
+                            fontWeight: 'bold',
+                            fontSize: fontSize
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                width: 3
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: fontSize,
+                        }
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: '对标判断页面示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["噪声","温度","湿度","甲醛-6","PM2.5","PM10"]
-            },
-            yAxis: {},
-            series: [{
-                name: '14层大办公室',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
-</body>
+                    },
+                    {
+                        data: [],
+                        show: true,
+                        type: "value",
+                        axisLine: {
+                            lineStyle: {
+                                width: 3
+
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: fontSize
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        min: miny,
+                        max: maxy,
+                        name: "MAP",
+                        nameGap: nameGap + fontSize * 0.5,
+                        nameLocation: 'middle',
+                        nameTextStyle: {
+                            fontWeight: 'bold',
+                            fontSize: fontSize
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                width: 3
+
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: fontSize
+                        }
+
+                    },
+                    {
+                        show: true,
+                        type: "value",
+                        axisLine: {
+                            lineStyle: {
+                                width: 3
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: fontSize
+                        }
+
+                    }
+                ],
+                series: [
+                    {
+                        name: firstName,
+                        type: 'scatter',
+                        symbol: circle,
+                        symbolSize: symbolSize,
+                        data: data1
+
+                    },
+                    {
+                        name: secondName,
+                        type: 'scatter',
+                        symbol: rect,
+                        symbolSize: symbolSize,
+                        data: data2
+
+                    },
+                    {
+                        name: thirdName,
+                        type: 'scatter',
+                        symbol: arrow,
+                        symbolSize: symbolSize,
+                        data: data3
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        </script>
+    </body>
 </html>

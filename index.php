@@ -15,9 +15,11 @@ require ('./PHP/websiteEntry.php');
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
         <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="layui/css/layui.css" media="all" />
-        <link rel="stylesheet" href="../../css/font_eolqem241z66flxr.css" media="all" />
+        <link rel="stylesheet" href="css/font_eolqem241z66flxr.css" media="all" />
         <link rel="stylesheet" href="css/main.css" media="all" />
+       
     </head>
     <body class="main_body">
         <div class="layui-layout layui-layout-admin">
@@ -81,15 +83,20 @@ require ('./PHP/websiteEntry.php');
         <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
         <div class="site-mobile-shade"></div>
 
+        
+        <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="js/jquery.form.min.js"></script>
         <script type="text/javascript" src="layui/layui.js"></script>
         <!-- 配置文件 -->
-        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.config.js"></script>
+        <script type="text/javascript" src="js/ueditor1_4_3_3-utf8-php/utf8-php/ueditor.config.js"></script>
         <!-- 编辑器源码文件 -->
-        <script type="text/javascript" src="ueditor1_4_3_3-utf8-php/utf8-php/ueditor.all.js"></script>
+        <script type="text/javascript" src="js/ueditor1_4_3_3-utf8-php/utf8-php/ueditor.all.js"></script>
         
         <script type="text/javascript" src="js/nav.js"></script>
         <script type="text/javascript" src="js/leftNav.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script> 
+        
+        
     </body>
 </html>
