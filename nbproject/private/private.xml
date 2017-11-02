@@ -3,18 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableDataFetch.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/upload.class.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableDataAddProc.php</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/PHP/connectvars.php</file>
             <file>file:/C:/wamp64/www/layui-admin-git/PHP/excelFileDataImport.php</file>
             <file>file:/C:/wamp64/www/layui-admin-git/page/excelFileUpload.html</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/ExcelToArrary.class.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tmpCode.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableDataEdit.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/excelToMysql.php</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/PHP/addTableByExcel.php</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/page/tableAddPage.html</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/js/leftNav.js</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableDataAdd.php</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/PHP/menuItemFetch.php</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/js/nav.js</file>
             <file>file:/C:/wamp64/www/layui-admin-git/js/bodyTab.js</file>
+            <file>file:/C:/wamp64/www/layui-admin-git/PHP/excelToMysql.php</file>
             <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableTitleFetch.php</file>
-            <file>file:/C:/wamp64/www/layui-admin-git/PHP/tableDataEditProc.php</file>
         </group>
     </open-files>
 </project-private>

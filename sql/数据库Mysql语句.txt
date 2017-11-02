@@ -119,5 +119,41 @@ alter table t_articleinfo MODIFY column field_2 text(20000);
 #--------------------------------------------------------------------------------
 #--------------  获取数据库中的表-----------------------------
 SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '数据库名'
- 
+
+
+
+######################################################################################################################################################
+######################################################################################################################################################
+##################################################11月1号网站版本中对数据的修改#######################################################################
+
+
+
+#--------------------------------------------------------------------------------
+#--------------  表格元数据信息表的创建 -----------------------------
+call proc_creattable('t_tablemetainfo',10);
+
+#--------------------------------------------------------------------------------
+#--------------  t_tablemetainfo:表元数据信息表的字段含义标注 -----------------------------
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_tablemetainfo','field_1','表名','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_tablemetainfo','field_2','表格标题','int'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_tablemetainfo','field_3','图标','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_tablemetainfo','field_4','描述','nvarchar'); 
+
+#--------------------------------------------------------------------------------
+#-------------- 插入数据库中已有表格的元数据信息 -----------------------------
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','基本信息表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','扩展信息表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_testdatainfo','测试数据表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_questionnaire','问卷信息表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_articleinfo','文章信息表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_userinfo','用户信息表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_systeminfo','字段元数据表','&#xe61c;',''); 
+insert into t_tablemetainfo(field_1,field_2,field_3,field_4) values('t_tablemetainfo','数据库表格管理','&#xe61c;',''); 
+
+
+#--------------------------------------------------------------------------------
+#-------------- 删除 t_field_desc_map 表（失效）， -----------------------------
+DROP TABLE t_field_desc_map;
+
+
  

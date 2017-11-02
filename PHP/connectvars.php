@@ -12,6 +12,7 @@
   define('DB_PASSWORD', 'root');
   define('DB_NAME', 't_publicbuildingdb');
   define('BASICBUILDINGTABLE_NAME', "t_buildinginfo");
+  define('TABLEMETAINFOTABLE_NAME', "t_tablemetainfo");
   define('EXTENDBUILDINGTABLE_NAME', "t_extendbuildinginfo");
   define('TOTALFIELDNUMS', "35");
   define('SYSTEMTABLENAME', "t_systeminfo");

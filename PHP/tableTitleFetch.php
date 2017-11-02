@@ -26,10 +26,10 @@ $col_width=120;
         <a class="layui-btn search_btn">查询</a>
     </div>
     <div class="layui-inline">
-        <a class="layui-btn linksAdd_btn" style="background-color:#5FB878">单条添加<a>
+        <a class="layui-btn linksAdd_btn" style="background-color:#5FB878"><?php echo $tableName=="t_tablemetainfo"?"创建表格":"添加记录";?><a>
     </div>
-    <div class="layui-inline">
-        <a class="layui-btn excelBatchImport" style="background-color:#FF5722">批量导入</a>
+    <div class="layui-inline" >
+        <a class="layui-btn excelBatchImport" style="background-color:#FF5722;<?php echo $tableName=="t_tablemetainfo"?"display:none;":"";?>">批量导入记录</a>
     </div>
     
 

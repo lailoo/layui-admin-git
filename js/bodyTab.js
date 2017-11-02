@@ -137,11 +137,11 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
     var currpage = 1;
     Tab.prototype.bindEventForCurrTab = function () {
         //加载页面数据
-        getList();
+        getTableDataList();
         //查询
 
     }
-    function getList() {
+    function getTableDataList() {
         var tableData = {tablename: $("#curr_table").attr("tablename"), colnum: $("#curr_table").attr("colnum"),
             searchword: $(".search_input").val()};
         $.ajax({
@@ -249,7 +249,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                                     if (parseInt(data) == 200) {
                                         layer.msg("修改成功");
                                         layer.close(index);
-                                        getList();
+                                        getTableDataList();
                                     }
                                 }
                             });
@@ -266,7 +266,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
         });
     });
     $("body").on('click', '.excelBatchImport', function () {
-        var excelFileImportPageContent="./page/excelFileUpload.html"
+        var excelFileImportPageContent = "./page/excelFileUpload.html"
         var pageTitle = "Excel文件上传";
         layer.open({
             type: 2,
@@ -275,18 +275,18 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
             content: excelFileImportPageContent,
             cancel: function (index) {
                 layer.close(index);
-                getList();
+                getTableDataList();
             }
         });
     });
     $("body").on("click", ".search_btn", function () {
         if ($(".search_input").val() != '') {
             var index = layer.msg('查询中，请稍候', {icon: 16, time: false, shade: 0.8});
-            getList();
+            getTableDataList();
             layer.close(index);
         } else {
             layer.msg("请输入需要查询的内容");
-            getList();
+            getTableDataList();
         }
     });
 
@@ -303,7 +303,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                     if (parseInt(data) == 200) {
                         //执行加载数据的方法
                         layer.msg('删除成功！');
-                        getList();
+                        getTableDataList();
                     }
                 }
             });
@@ -379,7 +379,22 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
             });
             //
             element.tabChange(tabFilter, thisTab.getLayId(articleTitle)).init();
-        } else {
+        } else if (tableData.tablename == "t_tablemetainfo") {
+            
+            var excelFileImportPageContent = "./page/tableAddPage.html"
+            var pageTitle = "创建表格";
+            layer.open({
+                type: 2,
+                title: pageTitle,
+                area: ["60%", "80%"],
+                content: excelFileImportPageContent,
+                cancel: function (index) {
+                    layer.close(index);
+                    getTableDataList();
+                }
+            });
+        }
+        else {
             $.ajax({
                 url: "./PHP/tableDataAdd.php",
                 type: 'get',
@@ -415,7 +430,7 @@ layui.define(["element", 'laypage', 'form', 'layer', 'jquery', 'table'], functio
                                         if (parseInt(data) == 200) {
                                             layer.msg("添加成功！");
                                         }
-                                        getList();
+                                        getTableDataList();
                                         layer.close(index);
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {  //#3这个error函数调试时非常有用，如果解析不正确，将会弹出错误框

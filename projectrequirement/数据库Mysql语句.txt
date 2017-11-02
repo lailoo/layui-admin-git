@@ -1,0 +1,120 @@
+创建数据库
+create Database t_publicbuildingdb CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+use t_publicbuildingdb;
+
+
+批量建表
+
+delimiter $$
+drop procedure if exists proc_creattable;
+create procedure proc_creattable
+(in tablename varchar(50),
+in columnnum int)
+
+begin
+declare counter int default 1;
+declare addcolsqlstr varchar(100);
+declare fieldname varchar(100);
+
+	set @sql= concat("create table if not exists  ", tablename," (id int auto_increment primary key)  CHARACTER SET utf8 COLLATE utf8_general_ci");
+	prepare stmt from @sql;
+	execute stmt;
+	
+	set counter=1;
+
+while counter<=columnnum do
+
+	set fieldname= concat("field_", counter) ;
+	
+	set @sql= concat("alter table ", tablename," add  ", fieldname, " varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci ");
+	prepare stmt from @sql;
+	execute stmt;
+	set counter=counter+1;
+end while;
+end;
+$$
+delimiter ;
+
+call proc_creattable('t_articleinfo',35);
+call proc_creattable('t_buildinginfo',35);
+call proc_creattable('t_extendbuildinginfo',35);
+call proc_creattable('t_field_desc_map',35);
+call proc_creattable('t_roominfo',35);
+call proc_creattable('t_systeminfo',35);
+call proc_creattable('t_testdatainfo',35);
+call proc_creattable('t_userinfo',35);
+call proc_creattable('t_questionnaire',35);
+
+
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_systeminfo','field_1','表名','nvarchar','t_buildinginfo,t_extendbuildinginfo,t_articleinfo,t_field_desc_map,t_roominfo,t_systeminfo,t_testdatainfo,t_userinfo,t_questionnaire');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_systeminfo','field_2','字段名','nvarchar');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_systeminfo','field_3','映射标题','nvarchar');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_systeminfo','field_4','数据类型','nvarchar','tinyint,int,float,char,varchar,data');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_systeminfo','field_5','取值类型（离散或连续）','nvarchar');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_systeminfo','field_6','取值范围','nvarchar');
+
+#--------------------------------------------------------------------------------
+#---------------t_extendbuildinginfo：扩展信息表-----------------------------
+
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_1','屋顶类型','nvarchar','平屋顶,坡屋顶,种植屋顶');
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_2','墙体保温类型','nvarchar','内保温,外保温,复合保温,自保温');
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_3','门','nvarchar');
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_4','窗','nvarchar','单层玻璃,双层玻璃,三层玻璃,其他');
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_5','外窗朝向','nvarchar','东,东南,南,西南,西,西北,北,东北');
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_6','灯具类型','nvarchar','白炽灯,荧光灯,LED'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_7','遮阳形式','nvarchar','内遮阳,中间遮阳,活动外遮阳,固定外遮阳,无');  
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_8','插座','nvarchar','普通插座,节能插座,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_9','空调设备类型','nvarchar','分体式空调,集中空调,多联机,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_10','房间送风类型','nvarchar','顶部下送风,顶部侧送风,中下部侧送风,地板送风,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_11','冷机类型','nvarchar','螺杆机,直燃机,离心机,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_12','水泵','nvarchar');
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_13','分体式空调能效等级','nvarchar','一级,二级,三级,四级,五级'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_14','分体式空调类型','nvarchar','壁挂式,柜式,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_extendbuildinginfo','field_15','测试时空气调节情况','nvarchar','空调开启制冷工况,空调开启制热工况,空调开启除湿工况,空调开启通风工况,暖气供暖开启,电暖气开启,开窗,其他'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_16','冷却塔','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_17','配电系统','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_18','锅炉','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_19','风机','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_20','电梯','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_extendbuildinginfo','field_21','备注','nvarchar'); 
+
+#--------------------------------------------------------------------------------
+#---------------t_buildinginfo：基本信息表-----------------------------
+
+
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_1','建筑名称','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4,field_5) values('t_buildinginfo','field_2','建筑类型','nvarchar','办公,商场,医疗,文教,宾馆,其它'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_3','气候区','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_4','所在城市','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_5','建筑面积','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_6','楼层数','int'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_7','业主单位','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_8','联系方式','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_9','建造时间','date'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_10','改造时间','date'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_buildinginfo','field_11','备注','nvarchar'); 
+
+#--------------------------------------------------------------------------------
+#---------------t_userinfo：基本信息表-----------------------------
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_1','用户名','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_2','密码','int'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_3','姓名','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_4','工作单位','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_5','角色','date'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_6','邮箱','date'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_userinfo','field_7','备注','nvarchar'); 
+
+
+#--------------------------------------------------------------------------------
+#---------------t_articleinfo：基本信息表-----------------------------
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_articleinfo','field_1','文章标题','nvarchar'); 
+insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_articleinfo','field_2','文章体内容','nvarchar'); 
+
+#insert into t_systeminfo(field_1,field_2,field_3,field_4) values('t_articleinfo','field_3','文章HTML页面','nvarchar'); 
+
+#--------------------------------------------------------------------------------
+#---------------修改文章内容类型为text-----------------------------
+alter table t_articleinfo MODIFY column field_2 text(20000);
+ 
+ 

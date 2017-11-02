@@ -1,0 +1,63 @@
+-- 创建数据库时,设置数据库的编码方式 
+-- CHARACTER SET:指定数据库采用的字符集,utf8不能写成utf-8
+-- COLLATE:指定数据库字符集的排序规则,utf8的默认排序规则为utf8_general_ci（通过show character set查看）
+drop database if EXISTS dbtest;
+create database dbtest CHARACTER SET utf8 COLLATE utf8_general_ci;
+1
+2
+3
+-- 修改数据库编码
+alter database dbtest CHARACTER SET GBK COLLATE gbk_chinese_ci;
+alter database dbtest CHARACTER SET utf8 COLLATE utf8_general_ci;
+1
+2
+3
+4
+5
+6
+7
+8
+9
+-- 创建表时，设置表、字段编码
+use dbtest;
+drop table if exists tbtest;
+create table tbtest(
+id int(10) auto_increment,
+user_name varchar(60) CHARACTER SET GBK COLLATE gbk_chinese_ci,
+email varchar(60),
+PRIMARY key(id)
+)CHARACTER SET utf8 COLLATE utf8_general_ci;
+1
+2
+3
+4
+-- 修改表编码
+alter table tbtest character set utf8 COLLATE utf8_general_ci;
+-- 修改字段编码
+ALTER TABLE tbtest MODIFY email VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_general_ci;
+1
+2
+3
+4
+-- 查看所有的字符编码
+SHOW CHARACTER SET;
+-- 查看创建数据库的指令并查看数据库使用的编码
+show create database dbtest;
+1
+2
+-- 查看数据库编码：
+show variables like '%char%';
+1
+2
+-- 设置character_set_server、set character_set_client和set character_set_results
+set character_set_server = utf8; -- 服务器的默认字符集。使用这个语句可以修改成功，但重启服务后会失效。根本的办法是修改配置MYSQL文件MY.INI，
+character_set_server=utf8，配置到mysqld字段下。
+
+set character_set_client = gbk; -- 来自客户端的语句的字符集。服务器使用character_set_client变量作为客户端发送的查询中使用的字符集。
+
+set character_set_results = gbk; -- 用于向客户端返回查询结果的字符集。character_set_results变量指示服务器返回查询结果到客户端使用的字符集。包括结果数据，例如列值和结果元数据（如列名）。
+
+1
+2
+-- 查看某字段使用的编码：
+SELECT CHARSET(email) FROM tbtest;
