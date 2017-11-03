@@ -5,3 +5,9 @@
 setcookie('user_id', $row['id'], 0, HOMEDIR);
             setcookie("user_name", $username, 0, HOMEDIR);
 ...
+
+3.注意服务器时区选择（php.ini文件）
+[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+date.timezone ="PRC"

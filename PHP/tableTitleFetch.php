@@ -54,17 +54,24 @@ $col_width=120;
                             echo "<th lay-data=\"{field:'field_$i',width:$curr_col_width,sort:true}\">field_$i</th>";
                         }
                     } else {
-                        $i=1;
+                        
+                        $titleList=array();
                         while ($row = mysqli_fetch_array($result)) {
+                            
+                            $titleList[$row['field_2']]=$row['field_3'];
+
+                        }
+                        
+                        for($i=1;$i<=$num_row;$i++){
                             $curr_col_width=0;
                             if($i==2&&$tableName==ARTICLETABLENAME){
                                 $curr_col_width=$col_width*6;
                             }else{
                                 $curr_col_width=$col_width;
                             }
-                            echo "<th lay-data=\"{field:'field_$i',width:$curr_col_width,sort:true}\">".$row['field_3']."</th>";
-                            $i++;
+                            echo "<th lay-data=\"{field:'field_$i',width:$curr_col_width,sort:true}\">".$titleList["field_$i"]."</th>";
                         }
+                        
                     }
                     ?>
                     

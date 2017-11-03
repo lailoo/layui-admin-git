@@ -85,34 +85,46 @@ function createTable($tablename, $tabletitle, $data) {
     $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $dbc->query("SET NAMES utf8");
     
-    $query = "call proc_creattable('$tablename',35);";
+    // exit(json_encode($data));
+    $query = "call proc_creattable('$tablename',35)";
+    
     
     if (mysqli_query($dbc, $query)) {
-        $data["status"] = 0;
-        //表格相关元数据清理工作
-        $query_delete_tablemeta="delete from t_tablemetainfo where field_1=$tablename;";
-        mysqli_query($dbc, $query_delete_tablemeta);
-        $query_delete_fieldmeta="delete from ".SYSTEMTABLENAME." where field_1=$tablename;";
-        mysqli_query($dbc, $query_delete_fieldmeta);
+
         
+        //表格相关元数据清理工作
+        $querydeletetablemeta="DELETE  FROM  t_tablemetainfo WHERE field_1='$tablename'";
+        
+        if(!mysqli_query($dbc, $querydeletetablemeta)){
+            $data["status"]=1;
+            $data["msg"]="表格元数据信息删除失败，错误信息：".mysqli_error($dbc);
+            exit(json_encode($data));
+        }
+        $querydeletefieldmeta="DELETE  FROM  ".SYSTEMTABLENAME." WHERE field_1='$tablename'";
+
+        // mysqli_query($dbc, $query_delete_fieldmeta);
+        if(!mysqli_query($dbc, $querydeletefieldmeta)){
+            $data["status"]=1;
+            $data["msg"]="表格字段元数据信息删除失败，错误信息：".mysqli_error($dbc);
+            exit(json_encode($data));
+        }
         
         //插入表格相关的元数据信息包括表格描述信息和字段信息
-        $query_insert = "insert into t_tablemetainfo (field_1,field_2,field_3,field_4) values('$tablename','$tabletitle','&#xe61c;','');";
+        $query_insert = "insert into t_tablemetainfo (field_1,field_2,field_3,field_4) values('$tablename','$tabletitle','&#xe61c;','')";
         if(!mysqli_query($dbc, $query_insert)){
             $data["status"] = 1;
             $data["msg"] = "表格元数据信息插入失败，错误信息：".mysqli_error($dbc);
+            exit(json_encode($data));
         }
     } else {
         $data["status"] = 1;
         $data["msg"] = "创建数据表失败，错误信息：" . mysqli_error($dbc);
+        exit(json_encode($data));
     }
     mysqli_close($dbc);
-    if($data["status"] == 1){
-        json_encode($data);
-        
-    }  else {
-        return $data;
-    }
+    
+    return $data;
+  
     
 }
 

@@ -41,13 +41,13 @@
                     <form id="tableCreateForm" class="layui-form" action='../PHP/addTableByExcel.php' method='post' enctype='multipart/form-data'>
 
                         <div class="layui-form-item"> 
-                            <label class="layui-form-label">tableName</label>
+                            <label class="layui-form-label">表格名称</label>
                             <div class="layui-input-block">
                                 <input type="text" name="tablename"  class="layui-input" placeholder="请输入表格的名字，如用户信息表命名为：t_userinfo" required>
                             </div>
                         </div>
                         <div class="layui-form-item"> 
-                            <label class="layui-form-label">tableName</label>
+                            <label class="layui-form-label">表格标题</label>
                             <div class="layui-input-block">
                                 <input type="text" name="tabletitle"  class="layui-input" placeholder="请输入表格的标题，如用来存储用户信息的表t_userinfo：用户信息表" required>
                             </div>
@@ -95,8 +95,14 @@
                         }
                         else if (data.status == 0) {
 //                            layer.alert("数据导入成功,数据存放路径为" + data.url);
+                            layer.closeAll();
+                            layer.msg("数据表创建成功，请手动刷新当前页面以在左侧菜单中展示新表！");
+                            // location.replace("http://39.108.221.230:8080/layui-admin-git/");  
                         }
                         reset();
+
+                        
+
                     },
                     error: function (XMLHttpRequest, textStatus) {
                         alert(XMLHttpRequest.status);
